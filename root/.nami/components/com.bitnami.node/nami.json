@@ -1,0 +1,60 @@
+{
+  "id": "com.bitnami.node",
+  "name": "node",
+  "extends": [
+    "Component"
+  ],
+  "revision": "0",
+  "version": "8.10.0",
+  "author": {
+    "name": "Bitnami",
+    "url": "https://bitnami.com"
+  },
+  "properties": {
+    "includePython": {
+      "default": true,
+      "description": "Include python in the installation",
+      "type": "boolean"
+    }
+  },
+  "installation": {
+    "prefix": "node",
+    "packaging": {
+      "components": [
+        {
+          "name": "node",
+          "owner": "root",
+          "folders": [
+            {
+              "name": "node",
+              "files": [
+                {
+                  "origin": [
+                    "files/node/*"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "python",
+          "owner": "root",
+          "folders": [
+            {
+              "name": "python",
+              "destination": "{{$app.installation.root}}/python",
+              "files": [
+                {
+                  "origin": [
+                    "files/python/*"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

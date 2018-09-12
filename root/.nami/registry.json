@@ -1,0 +1,92 @@
+{
+    "components": {
+        "com.bitnami.node": {
+            "id": "com.bitnami.node",
+            "name": "node",
+            "version": "8.10.0",
+            "revision": "0",
+            "installedAsRoot": true,
+            "lifecycle": "installed",
+            "installdir": "/opt/bitnami/node",
+            "installPrefix": "/opt/bitnami",
+            "values": {
+                "includePython": true
+            },
+            "extends": [
+                "Component"
+            ],
+            "environment": {},
+            "exports": [],
+            "definition": {
+                "resources": {
+                    "json": "nami.json",
+                    "js": [
+                        "main.js"
+                    ],
+                    "extra": [
+                        "lib"
+                    ],
+                    "installedFiles": "installed-files.txt"
+                },
+                "root": "com.bitnami.node"
+            }
+        },
+        "com.bitnami.php": {
+            "id": "com.bitnami.php",
+            "name": "php",
+            "version": "7.1.17",
+            "revision": "2",
+            "installedAsRoot": true,
+            "lifecycle": "unpacked",
+            "installdir": "/opt/bitnami/php",
+            "installPrefix": "/opt/bitnami",
+            "values": {
+                "port": 9000,
+                "enableRemoteConnection": true,
+                "systemUser": "daemon",
+                "systemGroup": "daemon",
+                "applicationDirectories": {
+                    "confDir": "etc",
+                    "logsDir": "var/log"
+                },
+                "dataToPersist": [
+                    "{{$app.confDir}}"
+                ],
+                "persistDir": "/bitnami/php",
+                "monitFile": "extra/monit.conf",
+                "logrotateFile": "extra/logrotate.conf"
+            },
+            "extends": [
+                "Service"
+            ],
+            "environment": {},
+            "exports": [
+                "configure",
+                "composerExecute",
+                "pearExecute",
+                "execute",
+                "resize",
+                "start",
+                "restart",
+                "stop",
+                "log",
+                "status"
+            ],
+            "definition": {
+                "resources": {
+                    "json": "nami.json",
+                    "js": [
+                        "helpers.js",
+                        "main.js"
+                    ],
+                    "extra": [
+                        "templates",
+                        "lib"
+                    ],
+                    "installedFiles": "installed-files.txt"
+                },
+                "root": "com.bitnami.php"
+            }
+        }
+    }
+}

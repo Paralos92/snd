@@ -1,0 +1,122 @@
+{
+  "id": "com.bitnami.php",
+  "name": "php",
+  "extends": [
+    "Service"
+  ],
+  "author": {
+    "name": "Bitnami",
+    "url": "https://bitnami.com"
+  },
+  "version": "7.1.17",
+  "revision": "2",
+  "properties": {
+    "port": {
+      "default": 9000,
+      "description": "PHP-FPM default port"
+    },
+    "enableRemoteConnection": {
+      "default": true,
+      "description": "Enable remote connections to PHP-FPM",
+      "type": "boolean"
+    },
+    "systemUser": {
+      "value": "daemon"
+    },
+    "systemGroup": {
+      "value": "daemon"
+    },
+    "applicationDirectories": {
+      "value": {
+        "confDir": "etc",
+        "logsDir": "var/log"
+      }
+    },
+    "dataToPersist": {
+      "value": [
+        "{{$app.confDir}}"
+      ]
+    },
+    "persistDir": {
+      "value": "/bitnami/php"
+    },
+    "monitFile": {
+      "value": "extra/monit.conf"
+    },
+    "logrotateFile": {
+      "value": "extra/logrotate.conf"
+    }
+  },
+  "exports": {
+    "configure": {
+      "arguments": [
+        "properties"
+      ]
+    },
+    "composerExecute": {
+      "arguments": [
+        "command",
+        "args",
+        "options"
+      ]
+    },
+    "pearExecute": {
+      "arguments": [
+        "command",
+        "args",
+        "options"
+      ]
+    },
+    "execute": {
+      "arguments": [
+        "script",
+        "args",
+        "options"
+      ]
+    },
+    "resize": {
+      "options": {
+        "memory": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "service": {
+    "pidFile": "{{$app.tmpDir}}/php5-fpm.pid",
+    "logFile": "{{$app.logsDir}}/php-fpm.log",
+    "socketFile": "{{$app.tmpDir}}/www.sock",
+    "confFile": "{{$app.confDir}}/php-fpm.conf",
+    "ports": [
+      "{{$app.port}}"
+    ],
+    "start": {
+      "timeout": 10,
+      "username": "{{$app.systemUser}}",
+      "command": "{{$app.installdir}}/sbin/php-fpm --pid {{$app.pidFile}} --fpm-config {{$app.confFile}} --prefix {{$app.installdir}} -c {{$app.confDir}}/php.ini"
+    }
+  },
+  "installation": {
+    "prefix": "php",
+    "packaging": {
+      "components": [
+        {
+          "name": "php",
+          "owner": "root",
+          "folders": [
+            {
+              "name": "php",
+              "files": [
+                {
+                  "origin": [
+                    "files/php/*"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
