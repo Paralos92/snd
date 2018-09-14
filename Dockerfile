@@ -10,5 +10,3 @@ RUN apt-get update && \
 WORKDIR /opt/mockery
 
 COPY composer.json ./
-
-RUN composer install
