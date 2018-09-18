@@ -1,4 +1,4 @@
-FROM php:7.1.3-cli
+FROM bitnami/laravel
 
 RUN apt-get update && \
     apt-get install -y git zip unzip && \
@@ -7,6 +7,6 @@ RUN apt-get update && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /opt/mockery
+WORKDIR /snd/
 
 COPY composer.json ./
